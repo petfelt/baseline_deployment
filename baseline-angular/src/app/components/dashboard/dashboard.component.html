@@ -1,0 +1,119 @@
+<div *ngIf="BidInProgress()">
+  <h2 class="page-header">Bid Now!</h2>
+
+  <div class="row">
+
+    <div class="col-md-4">
+      <h3>Product 1</h3>
+      <p>The coolest product you have ever seen.</p>
+      <p>Guaranteed.</p>
+
+      <form (submit)="onBidOneSubmit()">
+        <div class="form-group col-md-10">
+          <input type="number" [(ngModel)]="bid1num" name="bid1num" class="form-control">
+        </div>
+        <input type="submit" class="btn btn-primary" value="Bid">
+      </form>
+      <table class="col-md-12">
+        <p>Current Bids:</p>
+  	     <tr *ngFor="let bid of this.oneService.BIDS | my_filter:this.search_string1">
+           <td>{{bid.name}}  :  ${{bid.bid}}</td>
+  	     </tr>
+      </table>
+      <p class="col-md-12">Search</p>
+      <p class="col-md-9">
+        <input type="text" name="filter" [(ngModel)]="search_string1" class="form-control">
+      </p>
+
+    </div>
+
+
+
+    <div class="col-md-4">
+      <h3>Product 2</h3>
+      <p>The hottest product you have ever seen.</p>
+      <p>Guaranteed.</p>
+
+      <form (submit)="onBidTwoSubmit()">
+        <div class="form-group col-md-10">
+          <input type="number" [(ngModel)]="bid2num" name="bid2num" class="form-control">
+        </div>
+        <input type="submit" class="btn btn-primary" value="Bid">
+      </form>
+
+      <table class="col-md-12">
+        <p>Current Bids:</p>
+  	     <tr *ngFor="let bid of this.twoService.BIDS | my_filter:this.search_string2">
+           <td>{{bid.name}}  :  ${{bid.bid}}</td>
+  	     </tr>
+      </table>
+      <p class="col-md-12">Search</p>
+      <p class="col-md-9">
+        <input type="text" name="filter" [(ngModel)]="search_string2" class="form-control">
+      </p>
+    </div>
+
+
+
+    <div class="col-md-4">
+      <h3>Product 3</h3>
+      <p>The lukewarmest product you have ever seen.</p>
+      <p>Guaranteed.</p>
+
+      <form (submit)="onBidThreeSubmit()">
+        <div class="form-group col-md-10">
+          <input type="number" [(ngModel)]="bid3num" name="bid3num" class="form-control">
+        </div>
+        <input type="submit" class="btn btn-primary" value="Bid">
+      </form>
+
+      <table class="col-md-12">
+        <p>Current Bids:</p>
+  	     <tr *ngFor="let bid of this.threeService.BIDS | my_filter:this.search_string3">
+           <td>{{bid.name}}  :  ${{bid.bid}}</td>
+  	     </tr>
+      </table>
+      <p class="col-md-12">Search</p>
+      <p class="col-md-9">
+        <input type="text" name="filter" [(ngModel)]="search_string3" class="form-control">
+      </p>
+    </div>
+
+
+
+  </div>
+  <form (submit)="endBid()" class="spacer">
+    <div class="col-md-11"></div>
+    <input type="submit" class="btn btn-primary" value="End Bid">
+  </form>
+
+</div>
+
+<div *ngIf="!BidInProgress()">
+  <h2 class="page-header">{{this.user.name}} ended the Bid.</h2>
+  <h3>Highest Bidder per Product:</h3>
+  <h3 class="spacer">Product 1</h3>
+  <ul class="list-group">
+    <li class="list-group-item">Product Description: The coolest product you have ever seen. Guaranteed.</li>
+    <li class="list-group-item">Bought By: {{this.oneService.GreatestBid.name}}</li>
+    <li class="list-group-item">Price: ${{this.oneService.GreatestBid.bid}}</li>
+  </ul>
+  <h3 class="spacer">Product 2</h3>
+  <ul class="list-group">
+    <li class="list-group-item">Product Description: The hottest product you have ever seen. Guaranteed.</li>
+    <li class="list-group-item">Bought By: {{this.twoService.GreatestBid.name}}</li>
+    <li class="list-group-item">Price: ${{this.twoService.GreatestBid.bid}}</li>
+  </ul>
+  <h3 class="spacer">Product 3</h3>
+  <ul class="list-group">
+    <li class="list-group-item">Product Description: The lukewarmest product you have ever seen. Guaranteed.</li>
+    <li class="list-group-item">Bought By: {{this.threeService.GreatestBid.name}}</li>
+    <li class="list-group-item">Price: ${{this.threeService.GreatestBid.bid}}</li>
+  </ul>
+
+  <form (submit)="startBid()" class="spacer">
+    <div class="col-md-11"></div>
+    <input type="submit" class="btn btn-primary" value="Start Bid">
+  </form>
+
+</div>
